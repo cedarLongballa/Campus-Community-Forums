@@ -5,11 +5,12 @@ import { WeatherComponent } from './weather/weather.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import { GamesPageComponent } from './games-page/games-page.component';
 import { ForumsComponent } from './forums/forums.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: AppComponent,
+        component: HomeComponent,
         title: 'Home Page',
     },
     {
