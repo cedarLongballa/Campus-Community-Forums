@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 import { Database, ref, set, get, child } from '@angular/fire/database';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone: true,        // <-- 🔥 THIS IS MISSING IN YOURS
-  imports: [RouterOutlet, CommonModule],
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
