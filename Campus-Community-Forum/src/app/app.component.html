@@ -1,15 +1,1 @@
-<app-navbar></app-navbar>
-<div style="text-align:center">
-
-    <h1>Welcome to {{ title }}!</h1>
-  
-    <button (click)="writeData()">Write Data to Firebase</button>
-    <button (click)="readData()">Read Data from Firebase</button>
-  
-    <div *ngIf="dataFromDB">
-      <h3>Data from Firebase:</h3>
-      <pre>{{ dataFromDB | json }}</pre>
-    </div>
-  
-    <!-- <router-outlet></router-outlet> -->
-  </div>
+<app-home></app-home>
