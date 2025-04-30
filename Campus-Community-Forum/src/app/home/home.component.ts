@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Database, ref, set, get, child } from '@angular/fire/database';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, NavbarComponent, CommonModule],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
