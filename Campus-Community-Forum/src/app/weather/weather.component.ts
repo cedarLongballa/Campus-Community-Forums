@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-weather',
-  imports: [NavbarComponent],
+  imports: [],
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.css'
 })
