@@ -6,6 +6,10 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
 import { GamesPageComponent } from './games-page/games-page.component';
 import { ForumsComponent } from './forums/forums.component';
 import { HomeComponent } from './home/home.component';
+import { ForumRequestsComponent } from './forum-requests/forum-requests.component';
+import { ForumEventsComponent } from './forum-events/forum-events.component';
+import { ForumAnnouncementsComponent } from './forum-announcements/forum-announcements.component';
+import { ForumClassesComponent } from './forum-classes/forum-classes.component';
 
 export const routes: Routes = [
     {
@@ -37,5 +41,25 @@ export const routes: Routes = [
         path: 'forums',
         component: ForumsComponent,
         title: 'Forums',
+    },
+    {
+        path: 'forum-requests',
+        component: ForumRequestsComponent,
+        title: 'Forum Requests',
+    },
+    {
+        path: 'forum-events',
+        component: ForumEventsComponent,
+        title: 'Event Forum',
+    },
+    {
+        path: 'forum-announcements',
+        component: ForumAnnouncementsComponent,
+        title: 'Announcement Forum',
+    },
+    {
+        path: 'forum-classes',
+        component: ForumClassesComponent,
+        title: 'Class Forum',
     },
 ];
