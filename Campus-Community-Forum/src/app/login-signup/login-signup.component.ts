@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { Database } from '@angular/fire/database';
-import { child, get, ref, set } from 'firebase/database';
+import { ref, set, push, get, child } from 'firebase/database';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { UserSessionService } from '../services/user-session.service';
+
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string; // not recommended in production
+}
 
 @Component({
   selector: 'app-login-signup',
@@ -13,35 +22,101 @@ import { FormsModule } from '@angular/forms'
   templateUrl: './login-signup.component.html',
   styleUrl: './login-signup.component.css'
 })
+
+
 export class LoginSignupComponent {
-  title = "Campus Community Forym";
-  dataFromDB: any;
+  title = 'Campus Community Forum';
+  isLoginMode = true;
 
-  constructor(private db: Database) {}
+  
 
-  writeData() {
-    const dbRef = ref(this.db, 'messages/1');
-    set(dbRef, {
-      username: "Caden",
-      message: "Hello, Firebase!"
-    }).then(() => {
-      console.log("Data written successfully!");
-    }).catch((error) => {
-      console.error("Error writing data: ", error);
-    });
+  signupForm = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
+
+  loginForm = {
+    email: '',
+    password: ''
+  };
+
+  loginResult: string | null = null;
+
+  constructor(private db: Database, private session: UserSessionService) {}
+
+  toggleMode() {
+    this.isLoginMode = !this.isLoginMode;
+    this.loginResult = null;
   }
 
-  readData() {
+  signUp() {
     const dbRef = ref(this.db);
-    get(child(dbRef, `messages/1`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        this.dataFromDB = snapshot.val();
-        console.log(this.dataFromDB);
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+  
+    get(child(dbRef, 'users'))
+      .then((snapshot) => {
+        const users = snapshot.exists() ? snapshot.val() : {};
+        const emailExists = Object.values(users).some(
+          (user: any) => user.email === this.signupForm.email
+        );
+  
+        if (emailExists) {
+          this.loginResult = 'An account with this email already exists.';
+          return;
+        }
+  
+        // Proceed with user creation
+        const usersRef = ref(this.db, 'users');
+        const newUserRef = push(usersRef);
+  
+        const userData = {
+          id: newUserRef.key,
+          ...this.signupForm
+        };
+  
+        set(newUserRef, userData)
+          .then(() => {
+            this.loginResult = `User ${this.signupForm.firstName} signed up successfully!`;
+            this.signupForm = { firstName: '', lastName: '', email: '', password: '' };
+          })
+          .catch((error) => {
+            console.error('Signup error:', error);
+            this.loginResult = 'Signup failed.';
+          });
+      })
+      .catch((error) => {
+        console.error('Email check failed:', error);
+        this.loginResult = 'Error checking for duplicate emails.';
+      });
+  }
+  
+
+  login() {
+    const dbRef = ref(this.db);
+    get(child(dbRef, 'users'))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const users = snapshot.val();
+          const foundUser = Object.values(users).find(
+            (user: any) =>
+              user.email === this.loginForm.email &&
+              user.password === this.loginForm.password
+          ) as User | undefined;
+          
+          if (foundUser) {
+            this.session.setUser(foundUser);
+            this.loginResult = `Welcome back, ${foundUser.firstName}!`;
+          } else {
+            this.loginResult = 'Invalid credentials.';
+          }
+        } else {
+          this.loginResult = 'No users found.';
+        }
+      })
+      .catch((error) => {
+        console.error('Login error:', error);
+        this.loginResult = 'Login failed.';
+      });
   }
 }
