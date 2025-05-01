@@ -8,6 +8,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database'; // <-- AD
 const firebaseConfig = {
   apiKey: "AIzaSyA587uMKoD_ciJRmN30xFafxBuD1oQGqSE",
   authDomain: "my-practice-project-7ac81.firebaseapp.com",
+  databaseURL: "https://ccfdatabase-1b564-default-rtdb.firebaseio.com",
   projectId: "my-practice-project-7ac81",
   storageBucket: "my-practice-project-7ac81.firebasestorage.app",
   messagingSenderId: "407688837417",

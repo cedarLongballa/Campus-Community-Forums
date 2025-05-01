@@ -1,15 +1,12 @@
-<app-navbar></app-navbar>
-<div style="text-align:center">
+  <div>
+    <h1 class="center">Welcome to the Campus Community Forums. Check out the game of the week and the newsletter!</h1>
+  </div>
 
-    <h1>Welcome to {{ title }}!</h1>
-  
-    <button (click)="writeData()">Write Data to Firebase</button>
-    <button (click)="readData()">Read Data from Firebase</button>
-  
-    <div *ngIf="dataFromDB">
-      <h3>Data from Firebase:</h3>
-      <pre>{{ dataFromDB | json }}</pre>
+  <div class="card" style="width: 70%;">
+    <div class="card-body">
+      <p class="card-text">{{newsletterContent()}}</p>
+      <div class="center">
+        <button class="btn btn-primary mb-3"><a href="newsletter" style="color: white; text-decoration: none;">Open full newsletter</a></button>
+      </div>
     </div>
-  
-    <!-- <router-outlet></router-outlet> -->
   </div>
