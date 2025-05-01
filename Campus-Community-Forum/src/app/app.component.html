@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div style="text-align:center">
 
     <h1>Welcome to {{ title }}!</h1>
@@ -9,7 +10,11 @@
       <h3>Data from Firebase:</h3>
       <pre>{{ dataFromDB | json }}</pre>
     </div>
+    
+    <div *ngIf="!dataFromDB">
+      <p>No data read yet or data does not exist at the specified path.</p>
+    </div>
+    
   
-    <router-outlet></router-outlet>
+    <!-- <router-outlet></router-outlet> -->
   </div>
-  
