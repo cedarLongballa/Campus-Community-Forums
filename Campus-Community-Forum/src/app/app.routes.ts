@@ -62,4 +62,24 @@ export const routes: Routes = [
         component: ForumClassesComponent,
         title: 'Class Forum',
     },
+    {
+        path: 'forums/forum-requests/:id',
+        component: ForumClassesComponent,
+        title: 'Class Forum',
+    },
+    {
+        path: 'forums/forum-events/:id',
+        component: ForumClassesComponent,
+        title: 'Class Forum',
+    },
+    {
+        path: 'forums/forum-announcements/:id',
+        component: ForumClassesComponent,
+        title: 'Class Forum',
+    },
+    {
+        path: 'forums/forum-classes/:id',
+        component: ForumClassesComponent,
+        title: 'Class Forum',
+    },
 ];
