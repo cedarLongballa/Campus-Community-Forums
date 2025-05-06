@@ -24,4 +24,8 @@ export class UserSessionService {
     this.currentUser = null;
     localStorage.removeItem('activeUser');
   }
+
+  getUserName(){
+    return this.currentUser?.email;
+  }
 }
