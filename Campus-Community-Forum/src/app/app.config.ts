@@ -3,7 +3,8 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideDatabase, getDatabase } from '@angular/fire/database'; // <-- ADD THIS
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideAuth, getAuth } from '@angular/fire/auth'; // <-- ✅ ADD THIS
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZadSXXPftWCJP7-BhqXWuYyVBP-LN3Jo",
@@ -15,18 +16,13 @@ const firebaseConfig = {
   appId: "1:456819205686:web:943b4e1f2671ccb979da97"
 };
 
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
-    provideDatabase(() => getDatabase())  // <-- ADD THIS LINE
+    provideDatabase(() => getDatabase()),
+    provideAuth(() => getAuth()) // <-- ✅ ADD THIS LINE
   ]
 };
-
-
-
-
-

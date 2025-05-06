@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { Database } from '@angular/fire/database';
-import { ref, set, push, get, child } from 'firebase/database';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Database, ref, set, get } from '@angular/fire/database';
 import { UserSessionService } from '../services/user-session.service';
-
 
 export interface User {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  password: string; // not recommended in production
 }
 
 @Component({
@@ -22,13 +20,9 @@ export interface User {
   templateUrl: './login-signup.component.html',
   styleUrl: './login-signup.component.css'
 })
-
-
 export class LoginSignupComponent {
   title = 'Campus Community Forum';
   isLoginMode = true;
-
-  
 
   signupForm = {
     firstName: '',
@@ -44,79 +38,78 @@ export class LoginSignupComponent {
 
   loginResult: string | null = null;
 
-  constructor(private db: Database, private session: UserSessionService) {}
+  constructor(
+    private auth: Auth,
+    private db: Database,
+    private session: UserSessionService
+  ) {}
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
     this.loginResult = null;
   }
 
-  signUp() {
-    const dbRef = ref(this.db);
+  get currentUser() {
+    return this.session.getUser();
+  }
   
-    get(child(dbRef, 'users'))
-      .then((snapshot) => {
-        const users = snapshot.exists() ? snapshot.val() : {};
-        const emailExists = Object.values(users).some(
-          (user: any) => user.email === this.signupForm.email
-        );
-  
-        if (emailExists) {
-          this.loginResult = 'An account with this email already exists.';
-          return;
-        }
-  
-        // Proceed with user creation
-        const usersRef = ref(this.db, 'users');
-        const newUserRef = push(usersRef);
-  
-        const userData = {
-          id: newUserRef.key,
-          ...this.signupForm
-        };
-  
-        set(newUserRef, userData)
-          .then(() => {
-            this.loginResult = `User ${this.signupForm.firstName} signed up successfully!`;
-            this.signupForm = { firstName: '', lastName: '', email: '', password: '' };
-          })
-          .catch((error) => {
-            console.error('Signup error:', error);
-            this.loginResult = 'Signup failed.';
-          });
-      })
-      .catch((error) => {
-        console.error('Email check failed:', error);
-        this.loginResult = 'Error checking for duplicate emails.';
-      });
+  logout() {
+    this.session.clearUser();
+    this.loginResult = 'You have been logged out.';
   }
   
 
+  signUp() {
+    const { firstName, lastName, email, password } = this.signupForm;
+
+    createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        const userId = userCredential.user.uid;
+        const userProfile = { firstName, lastName, email };
+
+        // Save profile to database under /users/{uid}
+        const userRef = ref(this.db, `users/${userId}`);
+        return set(userRef, userProfile).then(() => {
+          const user: User = { id: userId, ...userProfile };
+          this.session.setUser(user);
+          this.loginResult = `User ${firstName} signed up successfully!`;
+          this.signupForm = { firstName: '', lastName: '', email: '', password: '' };
+        });
+      })
+      .catch((error) => {
+        console.error('Signup error:', error);
+        this.loginResult = error.message;
+      });
+  }
+
   login() {
-    const dbRef = ref(this.db);
-    get(child(dbRef, 'users'))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const users = snapshot.val();
-          const foundUser = Object.values(users).find(
-            (user: any) =>
-              user.email === this.loginForm.email &&
-              user.password === this.loginForm.password
-          ) as User | undefined;
-          
-          if (foundUser) {
-            this.session.setUser(foundUser);
-            this.loginResult = `Welcome back, ${foundUser.firstName}!`;
-          } else {
-            this.loginResult = 'Invalid credentials.';
-          }
-        } else {
-          this.loginResult = 'No users found.';
-        }
+    const { email, password } = this.loginForm;
+
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        const userId = userCredential.user.uid;
+
+        // Fetch user profile from database
+        const userRef = ref(this.db, `users/${userId}`);
+        get(userRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              const user: User = { id: userId, ...userData };
+              this.session.setUser(user);
+              this.loginResult = `Welcome back, ${user.firstName}!`;
+            } else {
+              this.loginResult = 'User profile not found.';
+            }
+          })
+          .catch((error) => {
+            console.error('Profile fetch error:', error);
+            this.loginResult = 'Failed to load user profile.';
+          });
       })
       .catch((error) => {
         console.error('Login error:', error);
-        this.loginResult = 'Login failed.';
+        this.loginResult = 'Invalid credentials.';
       });
   }
 }
