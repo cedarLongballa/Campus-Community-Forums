@@ -3,7 +3,17 @@ import { Database } from '@angular/fire/database';
 import { child, get, ref, set } from 'firebase/database';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Database, ref, set, get } from '@angular/fire/database';
+import { UserSessionService } from '../services/user-session.service';
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-login-signup',
@@ -13,34 +23,95 @@ import { FormsModule } from '@angular/forms'
   styleUrl: './login-signup.component.css'
 })
 export class LoginSignupComponent {
-  title = "Campus Community Forym";
-  dataFromDB: any;
+  title = 'Campus Community Forum';
+  isLoginMode = true;
 
-  constructor(private db: Database) {}
+  signupForm = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
 
-  writeData() {
-    const dbRef = ref(this.db, 'messages/1');
-    set(dbRef, {
-      username: "Caden",
-      message: "Hello, Firebase!"
-    }).then(() => {
-      console.log("Data written successfully!");
-    }).catch((error) => {
-      console.error("Error writing data: ", error);
-    });
+  loginForm = {
+    email: '',
+    password: ''
+  };
+
+  loginResult: string | null = null;
+
+  constructor(
+    private auth: Auth,
+    private db: Database,
+    private session: UserSessionService
+  ) {}
+
+  toggleMode() {
+    this.isLoginMode = !this.isLoginMode;
+    this.loginResult = null;
   }
 
-  readData() {
-    const dbRef = ref(this.db);
-    get(child(dbRef, `messages/1`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        this.dataFromDB = snapshot.val();
-        console.log(this.dataFromDB);
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+  get currentUser() {
+    return this.session.getUser();
+  }
+  
+  logout() {
+    this.session.clearUser();
+    this.loginResult = 'You have been logged out.';
+  }
+  
+
+  signUp() {
+    const { firstName, lastName, email, password } = this.signupForm;
+
+    createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        const userId = userCredential.user.uid;
+        const userProfile = { firstName, lastName, email };
+
+        // Save profile to database under /users/{uid}
+        const userRef = ref(this.db, `users/${userId}`);
+        return set(userRef, userProfile).then(() => {
+          const user: User = { id: userId, ...userProfile };
+          this.session.setUser(user);
+          this.loginResult = `User ${firstName} signed up successfully!`;
+          this.signupForm = { firstName: '', lastName: '', email: '', password: '' };
+        });
+      })
+      .catch((error) => {
+        console.error('Signup error:', error);
+        this.loginResult = error.message;
+      });
+  }
+
+  login() {
+    const { email, password } = this.loginForm;
+
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        const userId = userCredential.user.uid;
+
+        // Fetch user profile from database
+        const userRef = ref(this.db, `users/${userId}`);
+        get(userRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              const user: User = { id: userId, ...userData };
+              this.session.setUser(user);
+              this.loginResult = `Welcome back, ${user.firstName}!`;
+            } else {
+              this.loginResult = 'User profile not found.';
+            }
+          })
+          .catch((error) => {
+            console.error('Profile fetch error:', error);
+            this.loginResult = 'Failed to load user profile.';
+          });
+      })
+      .catch((error) => {
+        console.error('Login error:', error);
+        this.loginResult = 'Invalid credentials.';
+      });
   }
 }

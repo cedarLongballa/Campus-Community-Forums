@@ -1,12 +1,40 @@
 <div style="text-align:center">
+  <h1>Welcome to {{ title }}!</h1>
 
-    <h1>Welcome to {{ title }}!</h1>
-  
-    <button (click)="writeData()">Write Data to Firebase</button>
-    <button (click)="readData()">Read Data from Firebase</button>
-  
-    <div *ngIf="dataFromDB">
-      <h3>Data from Firebase:</h3>
-      <pre>{{ dataFromDB | json }}</pre>
+  <div *ngIf="currentUser; else authForm">
+    <p>You are currently signed in as {{ currentUser.firstName }}. Would you like to log out?</p>
+    <button (click)="logout()">Logout</button>
+
+    <div *ngIf="loginResult">
+      <h3>{{ loginResult }}</h3>
     </div>
   </div>
+
+  <ng-template #authForm>
+    <div *ngIf="!isLoginMode">
+      <h2>Sign Up</h2>
+      <form (ngSubmit)="signUp()">
+        <input [(ngModel)]="signupForm.firstName" name="firstName" placeholder="First Name" required />
+        <input [(ngModel)]="signupForm.lastName" name="lastName" placeholder="Last Name" required />
+        <input [(ngModel)]="signupForm.email" name="signupEmail" placeholder="Email" required />
+        <input [(ngModel)]="signupForm.password" name="signupPassword" placeholder="Password" type="password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+
+    <div *ngIf="isLoginMode">
+      <h2>Login</h2>
+      <form (ngSubmit)="login()">
+        <input [(ngModel)]="loginForm.email" name="loginEmail" placeholder="Email" required />
+        <input [(ngModel)]="loginForm.password" name="loginPassword" placeholder="Password" type="password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <button (click)="toggleMode()">Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
+
+    <div *ngIf="loginResult">
+      <h3>{{ loginResult }}</h3>
+    </div>
+  </ng-template>
+</div>
