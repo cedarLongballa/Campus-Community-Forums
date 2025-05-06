@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Database } from '@angular/fire/database';
+import { child, get, ref, set } from 'firebase/database';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
