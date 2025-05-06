@@ -43,22 +43,22 @@ export const routes: Routes = [
         title: 'Forums',
     },
     {
-        path: 'forum-requests',
+        path: 'forums/forum-requests',
         component: ForumRequestsComponent,
         title: 'Forum Requests',
     },
     {
-        path: 'forum-events',
+        path: 'forums/forum-events',
         component: ForumEventsComponent,
         title: 'Event Forum',
     },
     {
-        path: 'forum-announcements',
+        path: 'forums/forum-announcements',
         component: ForumAnnouncementsComponent,
         title: 'Announcement Forum',
     },
     {
-        path: 'forum-classes',
+        path: 'forums/forum-classes',
         component: ForumClassesComponent,
         title: 'Class Forum',
     },
