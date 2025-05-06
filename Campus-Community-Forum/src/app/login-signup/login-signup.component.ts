@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { Database } from '@angular/fire/database';
 import { child, get, ref, set } from 'firebase/database';
 import { CommonModule } from '@angular/common';

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-forums',
-  imports: [NavbarComponent],
+  imports: [RouterLink],
   templateUrl: './forums.component.html',
   styleUrl: './forums.component.css'
 })

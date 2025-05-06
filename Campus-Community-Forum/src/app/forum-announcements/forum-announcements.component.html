@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-body">
+      <form>
+          <div class="mb-3 formCSS">
+              <label for="firstName">Title</label>
+              <input type="text" id="title" class="form-control" placeholder="Title" #title>
+          </div>
+          <div class="mb-3 formCSS">
+              <label for="lastName">Question</label>
+              <input type="text" id="lName" class="form-control" placeholder="Question" #question>
+          </div>
+      </form>
+      <button type="submit" class="btn btn-primary mb-3 formCSS" (click)="createPost(title.value, question.value)">Create a Post</button>
+  </div>
+</div>
+
+<div class="mt-3">
+    <div class="row">
+      @for(post of posts; track post.id){
+      <div class="col-md-4 my-2 mx-0">
+        <div class="card text-bg-info p-5">
+          <h3 class="card-title">{{post.title}}</h3>
+          <a [routerLink] = "['/forums/forum-announcements', post.id]">Open Post</a>
+        </div>
+      </div>
+      }
+    </div>
+  </div>

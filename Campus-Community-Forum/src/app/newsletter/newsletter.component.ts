@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { DataServiceService } from '../data-service.service';
 
 @Component({
   selector: 'app-newsletter',
-  imports: [NavbarComponent],
+  imports: [],
   templateUrl: './newsletter.component.html',
   styleUrl: './newsletter.component.css'
 })
