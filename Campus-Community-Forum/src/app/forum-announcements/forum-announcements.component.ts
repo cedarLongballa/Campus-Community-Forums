@@ -17,7 +17,7 @@ export class ForumAnnouncementsComponent {
     this.posts = this.dataService.announcementPosts;
   }
 
-  createPost(){
+  createPost(title: string, question: string){
     
   }
 }

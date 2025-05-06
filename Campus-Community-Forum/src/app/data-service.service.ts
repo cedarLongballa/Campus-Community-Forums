@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { Post } from './post';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,8 @@ export class DataServiceService {
   setNewsletter(inputNews: string){
     this.newsletter.set(inputNews);
   }
+
+  // getAnnouncemnetPostById(id:number): Post{
+  //   return this.announcementPosts.filter(post => post.id == id)[0];
+  // }
 }
