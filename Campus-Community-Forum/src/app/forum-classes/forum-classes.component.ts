@@ -18,7 +18,7 @@ dataService = inject(DataServiceService);
   private currentUser = this.userSession.getUserName();
 
   ngOnInit(){
-    this.posts = this.dataService.announcementPosts;
+    this.posts = this.dataService.classPosts;
   }
 
   createPost(title: string, description: string){
