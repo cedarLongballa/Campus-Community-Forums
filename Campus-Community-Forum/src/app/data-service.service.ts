@@ -1,5 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Post } from './post';
+import { Auth } from '@angular/fire/auth';
+import { User } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +12,10 @@ export class DataServiceService {
 
   newsletter = signal("Go to data-service.service.ts to edit this text, or use setNewsletter(string)");
 
-  announcementPosts = [];
-  classPosts = [];
-  eventPosts = [];
-  requestPosts = [];
+  announcementPosts: Post[] = [];
+  classPosts: Post[] = [];
+  eventPosts: Post[] = [];
+  requestPosts: Post[] = [];
 
   setNewsletter(inputNews: string){
     this.newsletter.set(inputNews);
@@ -22,4 +24,22 @@ export class DataServiceService {
   // getAnnouncemnetPostById(id:number): Post{
   //   return this.announcementPosts.filter(post => post.id == id)[0];
   // }
+
+
+
+  addAnnPost(add: Post){
+    this.announcementPosts.push(add);
+  }
+
+  addClassPost(add: Post){
+    this.classPosts.push(add);
+  }
+
+  addEventPost(add: Post){
+    this.eventPosts.push(add);
+  }
+
+  addRequestPost(add: Post){
+    this.requestPosts.push(add);
+  }
 }
