@@ -4,3 +4,15 @@
       <p>{{post.description}}</p>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-body">
+        <form>
+            <div class="mb-3 formCSS">
+                <label for="lastName">Comment</label>
+                <input type="text" id="comment" class="form-control" placeholder="comment" #comment>
+            </div>
+        </form>
+        <button type="submit" class="btn btn-primary mb-3 formCSS" (click)="createComment(comment.value)">Post A Comment</button>
+    </div>
+  </div>
