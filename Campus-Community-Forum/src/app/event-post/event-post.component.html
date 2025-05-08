@@ -1,7 +1,20 @@
-<div class="col-md-4 my-2 mx-0">
-    <div class="card text-bg-info p-5">
+<div class="d-flex justify-content-center my-2 mx-0">
+    <div class="card p-5" style="background-color: rgb(255, 249, 242)">
       <h3 class="card-title">{{post.title}}, by {{post.author}}</h3>
       <p>{{post.description}}</p>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <div class="row d-flex justify-content-center">
+      @for(post of comments; track post.id){
+      <div class="col-12 my-2 mx-0">
+        <div class="card p-5 comment" style="background-color: rgb(255, 249, 242)">
+          <h5 class="card-title">{{post.comment}}</h5>
+          <p>- {{post.author}}</p>
+        </div>
+      </div>
+      }
     </div>
   </div>
 

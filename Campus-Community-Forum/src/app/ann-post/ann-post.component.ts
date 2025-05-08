@@ -18,11 +18,13 @@ export class AnnPostComponent {
   userSession = inject(UserSessionService);
   private runningId = 0;
   private currentUser: string | undefined = this.userSession.getUserName();
+  comments: Comment[] = [];
 
   post!: Post;
 
   ngOnInit(){
     this.post = this.dataService.getAnnPostById(this.id)
+    this.comments = this.dataService.announcementPostComments;
   }
 
   createComment(comment:string){
