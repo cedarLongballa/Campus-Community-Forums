@@ -1,0 +1,37 @@
+<div class = "container my-4">   
+    <h3 class = "text-center mb-4">{{ city }} 5-Day Weather Forecast</h3>
+    <div class="row" *ngIf="weatherData?.forecast?.forecastday">
+        <div class="col-md-4 mb-4" *ngFor="let day of weatherData.forecast.forecastday">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ day.date }}</h5>
+              <img [src]="day.day.condition.icon" [alt]="day.day.condition.text" />
+              <p><strong>Condition:</strong> {{ day.day.condition.text }}</p>
+              <p><strong>Wind:</strong> {{ day.day.maxwind_mph }} mph</p>
+              <p><strong>Feels Like:</strong> {{ day.day.avgtemp_f }} °F</p>
+              <p><strong>Average Temp:</strong> {{ day.day.avgtemp_f }} °F</p>
+              <p><strong>High:</strong> {{ day.day.maxtemp_f }} °F</p>
+              <p><strong>Low:</strong> {{ day.day.mintemp_f }} °F</p>
+              <p><strong>Precipitation:</strong> {{ day.day.totalprecip_in }} in</p>
+              <p><strong>UV Index:</strong> {{ day.day.uv }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <h3 class = "text-center">Search City For Weather</h3>
+        <form (ngSubmit) = "getWeather()">
+            <div class = "form-group">
+                <input
+                class = "form-control shrink-input"
+                type = "text"
+                [(ngModel)] = "city"
+                name = "city"
+                placeholder = "Fargo"
+                />
+            </div>
+        <div class = "text-center shrink-input">
+            <button type = "submit" class = "btn btn-success btn-md">Search</button>
+        </div>
+        </form>
+</div>
