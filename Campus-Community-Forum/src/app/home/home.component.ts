@@ -1,23 +1,18 @@
-import { Component, inject } from '@angular/core';
-import { Database, ref, set, get, child } from '@angular/fire/database';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { DataServiceService } from '../data-service.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  title = 'Campus Community Forum';
-  dataFromDB: any;
 
-  dataService = inject(DataServiceService);
+  constructor(public dataService: DataServiceService) {}
 
-  newsletterContent = this.dataService.newsletter;
-
-  constructor() {}
-
-  
+  newsletterPreview(): string {
+    const full = this.dataService.newsletter();
+    const previewLength = 500;
+    return full.length > previewLength ? full.slice(0, previewLength) + '...' : full;
+  }
 }

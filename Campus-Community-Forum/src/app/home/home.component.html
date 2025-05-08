@@ -1,12 +1,34 @@
-  <div>
-    <h1 class="center">Welcome to the Campus Community Forums. Check out the game of the week and the newsletter!</h1>
-  </div>
 
-  <div class="card" style="width: 70%;">
-    <div class="card-body">
-      <p class="card-text">{{newsletterContent()}}</p>
-      <div class="center">
-        <button class="btn btn-primary mb-3"><a href="newsletter" style="color: white; text-decoration: none;">Open full newsletter</a></button>
+<div>
+  <h1 class="center">Welcome to Campus Community Forum!</h1>
+  <h3>Play a game and interact with your community!</h3>
+</div>
+
+
+<div class="container mt-4">
+  <div class="row">
+    <!-- Left Column: Newsletter -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Newsletter Preview</h5>
+          <p class="card-text">{{ newsletterPreview() }}</p>
+          <div class="text-center">
+            <button class="btn btn-primary mb-3"> <a href="newsletter" style="color: white; text-decoration: none;">Open full newsletter</a>
+            </button>                     
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Image Box -->
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <div class="card">
+        <img src="images/forum-image.jpg" class="card-img-top" alt="Community Forum Image">
+        <div class="card-body">
+          <p class="card-text text-center">Join the discussion! Explore trending topics and connect with your peers.</p>
+        </div>
       </div>
     </div>
   </div>
+</div>

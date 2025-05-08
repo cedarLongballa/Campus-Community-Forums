@@ -2,10 +2,15 @@
 .center{
     margin: auto;
     text-align: center;
+    padding-top: 35px;
+    padding-right: 35px;
+    padding-left: 35px;
 }
 
-h1{
-    padding: 35px;
+h3{
+    margin: auto;
+    text-align:center;
+    color: gray;
 }
 
 .card{
