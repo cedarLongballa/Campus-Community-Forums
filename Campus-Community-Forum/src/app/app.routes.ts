@@ -10,6 +10,10 @@ import { ForumRequestsComponent } from './forum-requests/forum-requests.componen
 import { ForumEventsComponent } from './forum-events/forum-events.component';
 import { ForumAnnouncementsComponent } from './forum-announcements/forum-announcements.component';
 import { ForumClassesComponent } from './forum-classes/forum-classes.component';
+import { RequestPostComponent } from './request-post/request-post.component';
+import { EventPostComponent } from './event-post/event-post.component';
+import { AnnPostComponent } from './ann-post/ann-post.component';
+import { ClassPostComponent } from './class-post/class-post.component';
 
 export const routes: Routes = [
     {
@@ -64,22 +68,22 @@ export const routes: Routes = [
     },
     {
         path: 'forums/forum-requests/:id',
-        component: ForumClassesComponent,
-        title: 'Class Forum',
+        component: RequestPostComponent,
+        title: 'Request Post Detail',
     },
     {
         path: 'forums/forum-events/:id',
-        component: ForumClassesComponent,
-        title: 'Class Forum',
+        component: EventPostComponent,
+        title: 'Event Post Detail',
     },
     {
         path: 'forums/forum-announcements/:id',
-        component: ForumClassesComponent,
-        title: 'Class Forum',
+        component: AnnPostComponent,
+        title: 'Announcement Post Detail',
     },
     {
         path: 'forums/forum-classes/:id',
-        component: ForumClassesComponent,
-        title: 'Class Forum',
+        component: ClassPostComponent,
+        title: 'Class Post Detail',
     },
 ];

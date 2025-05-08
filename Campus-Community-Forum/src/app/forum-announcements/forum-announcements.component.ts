@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
 import { Post } from '../post';
 import { UserSessionService } from '../services/user-session.service';
-import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-forum-announcements',
