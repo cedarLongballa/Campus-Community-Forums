@@ -7,3 +7,11 @@
     color: white;
     text-decoration: none;
 }
+
+.navbar-logo {
+    padding-left: 15px;  /* Add some space on the left */
+    padding-right: 15px; /* Add some space on the right */
+    border-radius: 10px; /* Round the corners */
+    height: 40px;  /* Optional: set the height of the image */
+  }
+  
