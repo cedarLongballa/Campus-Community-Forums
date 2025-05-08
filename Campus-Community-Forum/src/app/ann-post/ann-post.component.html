@@ -1,0 +1,18 @@
+<div class="col-md-4 my-2 mx-0">
+    <div class="card text-bg-info p-5">
+      <h3 class="card-title">{{post.title}}, by {{post.author}}</h3>
+      <p>{{post.description}}</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+        <form>
+            <div class="mb-3 formCSS">
+                <label for="lastName">Comment</label>
+                <input type="text" id="comment" class="form-control" placeholder="comment" #comment>
+            </div>
+        </form>
+        <button type="submit" class="btn btn-primary mb-3 formCSS" (click)="createComment(comment.value)">Post A Comment</button>
+    </div>
+  </div>

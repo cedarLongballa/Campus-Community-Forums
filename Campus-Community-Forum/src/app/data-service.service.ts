@@ -21,11 +21,21 @@ export class DataServiceService {
     this.newsletter.set(inputNews);
   }
 
-  // getAnnouncemnetPostById(id:number): Post{
-  //   return this.announcementPosts.filter(post => post.id == id)[0];
-  // }
+  getAnnPostById(id:number): Post{
+    return this.announcementPosts.filter(post => post.id == id)[0];
+  }
 
+  getClassPostById(id:number): Post{
+    return this.announcementPosts.filter(post => post.id == id)[0];
+  }
 
+  getEventPostById(id:number): Post{
+    return this.announcementPosts.filter(post => post.id == id)[0];
+  }
+
+  getRequestPostById(id:number): Post{
+    return this.announcementPosts.filter(post => post.id == id)[0];
+  }
 
   addAnnPost(add: Post){
     this.announcementPosts.push(add);
