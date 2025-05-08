@@ -18,7 +18,7 @@
   <div class="row">
     @for(post of posts; track post.id){
     <div class="col-md-4 my-2 mx-0">
-      <div class="card text-bg-info p-5">
+      <div class="card p-5" style="background-color: rgb(255, 249, 242)">
         <h3 class="card-title">{{post.title}}, by {{post.author}}</h3>
         <p>{{post.description}}</p>
         <a [routerLink] = "['/forums/forum-requests', post.id]">Open Post</a>

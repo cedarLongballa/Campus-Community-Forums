@@ -14,6 +14,7 @@ export class EventPostComponent {
   dataService = inject(DataServiceService);
   pathSegments = window.location.pathname.split("/");
   id = Number(this.pathSegments[this.pathSegments.length - 1]);
+  comments: Comment[] = []
 
   userSession = inject(UserSessionService);
     private runningId = 0;
@@ -22,7 +23,8 @@ export class EventPostComponent {
   post!: Post;
 
   ngOnInit(){
-    this.post = this.dataService.getEventPostById(this.id)
+    this.post = this.dataService.getEventPostById(this.id);
+    this.comments = this.dataService.eventPostComments;
   }
 
   createComment(comment:string){

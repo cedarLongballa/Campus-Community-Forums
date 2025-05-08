@@ -14,6 +14,7 @@ export class ClassPostComponent {
   dataService = inject(DataServiceService);
   pathSegments = window.location.pathname.split("/");
   id = Number(this.pathSegments[this.pathSegments.length - 1]);
+  comments: Comment[] = []
 
   userSession = inject(UserSessionService);
     private runningId = 0;
@@ -23,6 +24,7 @@ export class ClassPostComponent {
 
   ngOnInit(){
     this.post = this.dataService.getClassPostById(this.id)
+    this.comments = this.dataService.classPostComments;
   }
 
   createComment(comment:string){
