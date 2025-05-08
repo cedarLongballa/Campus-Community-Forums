@@ -14,18 +14,19 @@ export class UserSessionService {
   }
 
   getUser(): User | null {
-    if (this.currentUser) return this.currentUser;
-
     const storedUser = localStorage.getItem('activeUser');
-    return storedUser ? JSON.parse(storedUser) : null;
+    this.currentUser = storedUser ? JSON.parse(storedUser) : null;
+    return this.currentUser;
   }
+  
 
   clearUser() {
     this.currentUser = null;
     localStorage.removeItem('activeUser');
   }
 
-  getUserName(){
-    return this.currentUser?.email;
+  getUserName() {
+    return this.getUser()?.email;
   }
+  
 }
