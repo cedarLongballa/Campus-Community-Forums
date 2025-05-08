@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Post } from './post';
 import { Auth } from '@angular/fire/auth';
 import { User } from 'firebase/auth';
+import { Comment } from './comment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,11 @@ export class DataServiceService {
   classPosts: Post[] = [];
   eventPosts: Post[] = [];
   requestPosts: Post[] = [];
+
+  announcementPostComments: Comment[] = [];
+  classPostComments: Comment[] = [];
+  eventPostComments: Comment[] = [];
+  requestPostComments: Comment[] = [];
 
   setNewsletter(inputNews: string){
     this.newsletter.set(inputNews);
@@ -51,5 +57,37 @@ export class DataServiceService {
 
   addRequestPost(add: Post){
     this.requestPosts.push(add);
+  }
+
+  getAnnPostCommById(id:number): Comment{
+    return this.announcementPostComments.filter(post => post.id == id)[0];
+  }
+
+  getClassPostCommById(id:number): Comment{
+    return this.classPostComments.filter(post => post.id == id)[0];
+  }
+
+  getEventPostCommById(id:number): Comment{
+    return this.eventPostComments.filter(post => post.id == id)[0];
+  }
+
+  getRequestPostCommById(id:number): Comment{
+    return this.requestPostComments.filter(post => post.id == id)[0];
+  }
+
+  addAnnPostComm(add: Comment){
+    this.announcementPostComments.push(add);
+  }
+
+  addClassPostComm(add: Comment){
+    this.classPostComments.push(add);
+  }
+
+  addEventPostComm(add: Comment){
+    this.eventPostComments.push(add);
+  }
+
+  addRequestPostComm(add: Comment){
+    this.requestPostComments.push(add);
   }
 }
