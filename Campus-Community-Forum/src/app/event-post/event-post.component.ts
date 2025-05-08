@@ -33,6 +33,6 @@ export class EventPostComponent {
         comment,
         id: this.runningId++
       };
-      this.dataService.addAnnPostComm(newComment);
+      this.dataService.addEventPostComm(newComment);
     }
 }
