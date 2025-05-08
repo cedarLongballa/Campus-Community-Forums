@@ -1,9 +1,22 @@
 <div class="card">
     <div class="card-body">
-        <p class="card-text">{{newsletterContent()}}</p>
+      <p class="card-text">{{ newsletterContent() }}</p>
     </div>
-</div>
-
-<div class="center">
-    <button class="btn btn-primary" (click)="subscribe()">Subscribe!</button>
-</div>
+  </div>
+  
+  <div class="center">
+    <button 
+      *ngIf="!isSubscribed" 
+      class="btn btn-primary" 
+      (click)="subscribe()">
+      Subscribe!
+    </button>
+  
+    <button 
+      *ngIf="isSubscribed" 
+      class="btn btn-danger" 
+      (click)="unsubscribe()">
+      Unsubscribe
+    </button>
+  </div>
+  

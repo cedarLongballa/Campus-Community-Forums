@@ -1,6 +1,6 @@
 export interface User {
-    username: string;
-    password: string;
-    permission: 'user' | 'admin';
-  }
-  
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}

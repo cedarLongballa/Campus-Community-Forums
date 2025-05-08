@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Database, ref, set, get } from '@angular/fire/database';
 import { UserSessionService } from '../services/user-session.service';
+import { Router } from '@angular/router';
 
 export interface User {
   id: string;
@@ -16,7 +16,7 @@ export interface User {
 @Component({
   selector: 'app-login-signup',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login-signup.component.html',
   styleUrl: './login-signup.component.css'
 })
@@ -41,7 +41,8 @@ export class LoginSignupComponent {
   constructor(
     private auth: Auth,
     private db: Database,
-    private session: UserSessionService
+    private session: UserSessionService,
+    private router: Router
   ) {}
 
   toggleMode() {
@@ -54,8 +55,10 @@ export class LoginSignupComponent {
   }
   
   logout() {
-    this.session.clearUser();
+    this.session.clearUser();  // Clear the user session
     this.loginResult = 'You have been logged out.';
+    // Optionally, redirect the user to the login page or home page
+    this.router.navigate(['/login']);  // Make sure to import Router if needed
   }
   
 
