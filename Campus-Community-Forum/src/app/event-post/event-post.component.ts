@@ -18,4 +18,8 @@ export class EventPostComponent {
   ngOnInit(){
     this.post = this.dataService.getEventPostById(this.id)
   }
+
+  createComment(comment:string){
+    
+  }
 }

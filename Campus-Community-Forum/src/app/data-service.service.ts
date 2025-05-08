@@ -26,15 +26,15 @@ export class DataServiceService {
   }
 
   getClassPostById(id:number): Post{
-    return this.announcementPosts.filter(post => post.id == id)[0];
+    return this.classPosts.filter(post => post.id == id)[0];
   }
 
   getEventPostById(id:number): Post{
-    return this.announcementPosts.filter(post => post.id == id)[0];
+    return this.eventPosts.filter(post => post.id == id)[0];
   }
 
   getRequestPostById(id:number): Post{
-    return this.announcementPosts.filter(post => post.id == id)[0];
+    return this.requestPosts.filter(post => post.id == id)[0];
   }
 
   addAnnPost(add: Post){
