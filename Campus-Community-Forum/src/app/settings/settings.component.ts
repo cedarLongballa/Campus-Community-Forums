@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DarkModeService } from '../darkmode.service';
 
 @Component({
   selector: 'app-settings',
@@ -6,6 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
 })
-export class SettingsComponent {
 
+export class SettingsComponent {
+  darkModelService = inject(DarkModeService)
+
+  toggleDarkMode(){
+    this.darkModelService.updateDarkMode();
+  }
 }
