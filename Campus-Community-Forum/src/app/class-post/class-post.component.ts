@@ -33,6 +33,6 @@ export class ClassPostComponent {
         comment,
         id: this.runningId++
       };
-      this.dataService.addAnnPostComm(newComment);
+      this.dataService.addClassPostComm(newComment);
     }
 }
