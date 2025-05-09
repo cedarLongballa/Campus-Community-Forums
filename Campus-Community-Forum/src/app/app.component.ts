@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
+import { DarkModeService } from './darkmode.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class AppComponent {
   title = 'Campus Community Forum';
+  darkModeService = inject(DarkModeService);
 }

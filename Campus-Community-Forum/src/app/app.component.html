@@ -1,5 +1,5 @@
 <!-- app.component.html -->
-<div class="d-flex flex-column min-vh-100">
+<div class="d-flex flex-column min-vh-100" [attr.data-bs-theme]="this.darkModeService.darkModeSignal()">
     <app-navbar></app-navbar>
     <router-outlet></router-outlet>
     <app-footer class="footer-spacing"></app-footer>
