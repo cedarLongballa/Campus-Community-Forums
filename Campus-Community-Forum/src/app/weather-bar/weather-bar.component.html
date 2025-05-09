@@ -1,1 +1,11 @@
-<p>weather-bar works!</p>
+<div class = "weatherbar bg-info">
+    <span class = "date">{{ currentDay }} {{ currentDate }}</span>
+    <span class = "barinfo">
+        <span><img [src]="weatherData.current.condition.icon" [alt]="weatherData.current.condition.text"/></span>
+        <span><strong>Condition: </strong>{{ weatherData.current.condition.text }}</span>
+        <span><strong>Temperature: </strong>{{ weatherData.current.temp_f}} °F</span>
+        <span><strong>Feels Like: </strong>{{ weatherData.current.feelslike_f}} °F</span>
+        <span><strong>Wind Speed: </strong>{{ weatherData.current.wind_mph}} mph</span>
+        <span><strong>Precipitation: </strong>{{ weatherData.current.precip_in}} in.</span>
+    </span>
+</div>
