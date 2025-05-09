@@ -3,11 +3,12 @@ import { DataServiceService } from '../data-service.service';
 import { Database, ref, set, get } from '@angular/fire/database';
 import { CommonModule } from '@angular/common';
 import { UserSessionService } from '../services/user-session.service';
+import { WeatherBarComponent } from '../weather-bar/weather-bar.component';
 
 @Component({
   selector: 'app-newsletter',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, WeatherBarComponent],
   templateUrl: './newsletter.component.html',
   styleUrl: './newsletter.component.css'
 })

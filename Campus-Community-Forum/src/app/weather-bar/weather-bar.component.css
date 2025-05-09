@@ -1,0 +1,25 @@
+.weatherbar {
+    height: 32px; /*Weather bar height -Nolan*/
+    display: flex;
+    align-items: center; /*Center Vertically -Nolan*/
+    justify-content: space-between; /*Splits left and center alignment -Nolan*/
+    padding: 0 10px;
+}
+
+.date {
+    display: flex;
+    align-items: center; /*Center Vertically -Nolan*/
+    color: white;
+    text-decoration: none;
+    flex: 0 0 auto; /*Prevents Stretching -Nolan*/
+}
+
+.barinfo {
+    display: flex;
+    align-items: center; /*Center Vertically -Nolan*/
+    justify-content: center; /*Center Horizontally -Nolan*/
+    gap: 16px; /*Item spacing -Nolan*/
+    color: white;
+    text-decoration: none;
+    margin: 0 auto; /*Center Bar Info -Nolan*/
+}

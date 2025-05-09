@@ -14,6 +14,7 @@ import { RequestPostComponent } from './request-post/request-post.component';
 import { EventPostComponent } from './event-post/event-post.component';
 import { AnnPostComponent } from './ann-post/ann-post.component';
 import { ClassPostComponent } from './class-post/class-post.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: Routes = [
     {
@@ -85,5 +86,10 @@ export const routes: Routes = [
         path: 'forums/forum-classes/:id',
         component: ClassPostComponent,
         title: 'Class Post Detail',
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent,
+        title: 'Settings Page',
     },
 ];
